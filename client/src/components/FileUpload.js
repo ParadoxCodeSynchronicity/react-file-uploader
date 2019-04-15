@@ -4,7 +4,7 @@ import axios from 'axios';
 const FileUpload = () => {
   const [file, setFile] = useState('');
   const [filename, setFilename] = useState('Choose File');
-  const [uploadedFile, setUploadedFIle] = 
+  const [uploadedFile, setUploadedFile] = useState({})
 
   const onChange = e => {
     setFile(e.target.files[0]);
@@ -22,8 +22,16 @@ const FileUpload = () => {
           'Content-Type': 'multipart/form-data'
         }
       });
-    } catch (err) {
 
+      const { fileName, filePath } = res.data;
+
+      setUploadedFile({ fileName, filePath });
+    } catch (err) {
+      if(err.response.status === 500) {
+        console.log('There was a problem with the server');
+      } else {
+        console.log(err.response.data.msg);
+      }
     }
   }
 
