@@ -18,7 +18,7 @@ app.post('/upload', (req, res) => {
             return res.send(500).send(err);
         }
 
-        res.json({ fileName: file.name, filePath: `/uploads/${file.name}`});
+        res.json({ fileName: file.name, filePath: `/upload/${file.name}`});
     })
 });
 
